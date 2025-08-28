@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*c(#5jn9)f!0v3r06)x4u@8v0(%ts&guxp(l3th=cub*21dk&%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['13.218.169.183', '127.0.0.1']
 
@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['13.218.169.183', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
+    'mysite.apps.MysiteConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,7 +70,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'awsTest.wsgi.application'
+ASGI_APPLICATION = 'awsTest.asgi.application'
 
+# Channels layer configuration
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('3.16.22.107', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
